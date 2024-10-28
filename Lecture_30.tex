@@ -1,0 +1,133 @@
+\input{notes.tex}
+
+\iftoggle{dualscreen}{\setbeameroption{show notes on second screen=right}}{}
+
+\usepackage{gensymb}
+\begin{document}
+
+\section{Lecture 28}\subsection{D'Alembert Solutions on Finite Domains}
+
+\slide[Recall: D'Alembert's Solution]{
+\vspace{-2em}
+\algn{y_{tt}&=c^2y_{xx} \quad  & 0<x<L \\   y(x,0)&= f(x)& y_t(x,0)&=g(x)}
+\vspace{-1em}
+
+\centerline{
+\fbox{
+\begin{minipage}{.95\columnwidth}
+\vspace{.25em}
+\[y(x,t)=A(x-ct)+B(x+ct) \qquad \text{with}\] \small 
+\[A(z) = \frac12 \left[ F(z) - \frac1c\int_0^z G(x)dx\right] \quad  \text{and} \quad B(z) = \frac12 \left[ F(z) + \frac1c\int_0^z G(x)dx \right]\]
+\vspace{.25em}
+$F$ and $G$ are and odd periodic extensions of $f(x)$ and $g(x)$, respectively.
+\vspace{.25em}
+\end{minipage}}
+}
+
+\vfill
+\student{
+\uline{Simple case:} g(x)=0\vfill
+The initial condition $f(x)$ splits into two waves that move in opposite direction with speed $c$ and reflect off the boundaries.
+}
+}
+
+\slide[]{\vspace{-2.6em}
+\algn{y_{tt}&=y_{xx} \quad  & 0<x<5 \\   y(x,0)&= f(x)& y_t(x,0)&=0}
+
+Suppose $f(x)$ is zero everywhere except very close to x=1 where it has a local maxmimum. \vfill
+\twomini{.5}{.5}{\vspace{2cm}
+Find the first  time and location where the solution has a single local extremum for $t>0$.}{\vspace{-1em}
+\tikzplot[\xcoord{1}{1}\xcoord{2}{2}\xcoord{3}{3}\xcoord{4}{4} \xcoord{0}{0}\xcoord{5}{5} \ycoord{1}{1}\ycoord{2}{2}\ycoord{3}{3}\ycoord{4}{4}\ycoord{5}{5}\ycoord{6}{6}]{.1}{5.2}{.1}{6.2}{\mathbf{x}}{\mathbf{t}}{
+\student{
+\draw[thick] (1,0) -- (0,1)  -- (5,6);
+\draw[thick] (1,0) -- (5,4) -- (0,9);
+\draw (1,2)--(1,1.5); \draw (3,2)--(3,2.5);
+ \draw[ultra thick] plot[domain=0:5, samples=150, smooth] ({\x},{2-0.5*exp(-(\x-1)*(\x-1)/0.01) + 0.5*exp(-(\x-3)*(\x-3)/0.01) });
+ \draw (2,3)--(2,2.5); \draw (4,3)--(4,3.5);
+ \draw[ultra thick] plot[domain=0:5, samples=150, smooth] ({\x},{3-0.5*exp(-(\x-2)*(\x-2)/0.01) + 0.5*exp(-(\x-4)*(\x-4)/0.01) });
+  \draw (4,5)--(4,4);
+  \draw[ultra thick] plot[domain=0:5, samples=150, smooth] ({\x},{5-exp(-(\x-4)*(\x-4)/0.01) });
+ }
+ \draw[ultra thick, black] plot[domain=0:5, samples=150, smooth] ({\x},{ 0.01+exp(-(\x-1)*(\x-1)/0.01)});
+ \draw[black] (2,0.25) node{f(x)};
+}
+}
+}
+
+\slide[]{
+Given\vspace{-2.25em}
+\algn{y_{tt}&=25y_{xx}  & y(0,t)&=y(3,t)=0, \\   y(x,0)&=y_0(x) \quad \text{for }0<x<3& y_t(x,0)&=0}
+\vfill
+Find the solution $y(1,1000)$.
+\student{We have $c=5$ and $L=3$.\vfill
+D'Alembert's solution:
+\algn{y(1,1000)&=\frac{F(1-c\cdot1000)+F(1+c\cdot1000)}{2}\intertext{where $F$ is an \uline{odd} periodic extension of the initial condition}
+F(z)&=\begin{cases} y_0(z)& 0\leq z\leq 3\\ -y_0(-z) & -3<z<0\end{cases} \quad \text{ with }  F(z+n6)=F(z) \quad \forall n\in\mathbb{N}}\vfill
+ Unfortunately $x\pm ct = \underbrace{1\pm5000}_{-4999,\;5001}$ is not in the interval $(-3,3]$
+}
+
+}
+
+
+\slide[]{
+\student{
+We exploit the periodicity  property $F(z+n6)=F(z)$  to map -4999 and 5001 onto $(-3,3]$.
+\vfill
+Need to find two  appropriate integers $n_1$ and $n_2$
+\vfill
+\algn{-3&<-4999+n_16\leq 3 & -3&<5001+n_26\leq 3\\
+4996&<n_16\leq 5002 & -5004&<n_26\leq -4998\\
+\frac{4996}{6}&<n_1\leq\frac{5002}{6} & \frac{-5004}{6}&<n_2\leq \frac{-4998}{6}\\
+832.66&<n_1\leq 833.6 & -833&<n_2\leq -834\\
+n_1&=833 & n_2&=-834 \intertext{So,}
+-4999 &\rightarrow -4999+833\cdot6 = -1 & 5001 &\rightarrow 5001-834\cdot6=-3 }
+
+
+}
+}
+
+
+\slide{
+\[-4999 \rightarrow -1 \qquad \qquad  5001 \rightarrow -3\]
+\student{
+Finally
+\[y(1,1000)=\frac{F(-1)+F(-3)}2\]
+where \[ F(z)=\begin{cases} y_0(z)& 0\leq z\leq 3\\ -y_0(-z) & -3<z<0\end{cases}  \]
+so 
+\[y(1,1000)=-\frac{y_0(1)+y_0(3)}2\]
+}
+\ex{$y_0(x)=x^3-\frac92x^2+7$}
+\student{\[y(1,1000)=-\frac{1-\frac92+7 + 27 -\frac92 \cdot 9 +7}{2} =\frac{3}{2}\]}
+}
+
+
+
+\subsection{Extending D'Alembert Solutions}
+\slide[D'Alembert's Solution with other Boundary Conditions]{
+The solution method is agnostic to boundary conditions
+\algn{y_{tt}&=c^2y_{xx}  &a<x<b\\   y(x,0)&= f(x)& y_t(x,0)&=g(x)}
+\vspace{-1em}
+\vfill
+\centerline{
+\fbox{
+\begin{minipage}{.95\columnwidth}
+\vspace{.25em}
+\[y(x,t)=A(x-ct)+B(x+ct) \qquad \text{with}\] \small 
+\[A(z) = \frac12 \left[ F(z) - \frac1c\int_a^z G(x)dx\right] \quad  \text{and} \quad B(z) = \frac12 \left[ F(z) + \frac1c\int_a^z G(x)dx \right]\]
+\vspace{.25em}
+\end{minipage}}
+}
+\vfill
+\twomini[.25]{.6}{.4}{
+\ex{$0<x<L \quad y_x(0,t)=y_x(L,t)=0$}\\~\\
+\student{
+$F$ and $G$ are \uline{even} periodic extensions of $f(x)$ and $g(x)$, respectively.
+}
+}{\ex{$-\infty<x<\infty$}
+\student{\algn{
+F=f \\ G=g
+}}
+}
+}
+
+\end{document}

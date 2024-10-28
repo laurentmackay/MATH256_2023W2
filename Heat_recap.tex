@@ -1,0 +1,89 @@
+\input{notes.tex}
+
+\iftoggle{dualscreen}{\setbeameroption{show notes on second screen=right}}{}
+
+
+\begin{document}
+
+\section{Heat Recap}
+\subsection{Fourier Series}
+
+\slide[Fourier Series of $T$-periodic function]{
+\student{
+Expand $f(x)$ in the Fourier basis
+\[{\rm FS}[f(x)] = \frac{a_0}{2}+\sum_{n=1}^\infty a_n \cos\paren{\frac{2 n \pi}{T} x} + b_n \sin\paren{\frac{2 n \pi}{T} x}\]
+\algn{a_n&=\left<f(x),  \cos\paren{\frac{2 n \pi}{T} x} \right> = \intop_\alpha^{\alpha+T} f(x)  \cos\paren{\frac{2 n \pi}{T} x}   dx\\
+b_n&=\left<f(x),  \sin\paren{\frac{2 n \pi}{T} x} \right> = \intop_\alpha^{\alpha+T} f(x)  \sin\paren{\frac{2 n \pi}{T} x}   dx
+\intertext{The Fourier basis is orthonormalized}}
+
+\vspace{-2em}
+
+\[
+\left<\sin\paren{\frac{2 n \pi}{T} x},  \sin\paren{\frac{2 m \pi}{T} x} \right> =\begin{cases} 1 & m=n\neq0\\0&\text{otherwise}\end{cases}
+\]
+}
+}
+\subsection{Heat Equation with Homogeneous BCs}
+\slide[Homogeneous Heat Equation]{
+\student{
+Let $u(x,t)$ be a function of space $0<x<L$ and time $t$.
+\algn{
+u_t&=\alpha u_{xx} \quad \text{with } \arr{r}{u(x,0)=u_0(x) \\ \text{for } x\in (0,L)} & \text{and}& \arr{l}{1)\;\; u(0,t)=u(L,t)=0\\\qquad \text{\uline{or}}\\2) \;\;u_x(0,t)=u_x(L,t)=0} 
+}
+Fundamental Solution (Separation of Variables):
+\[u_n=e^{-\alpha \frac{n^2\pi^2}{L^2}t} \paren{A_n  \cos\paren{\frac{n \pi}{L} x}  + B_n  \sin\paren{\frac{n \pi}{L} x} } \qquad n=0,1,\dots,\infty\]
+
+Initial Condition:
+\[u(x,0) = u_0(x) = \sum_{n=0}^\infty u_n(x,0) = \underbrace{\sum_{n=0}^\infty A_n  \cos\paren{\frac{n \pi}{L} x}  + B_n  \sin\paren{\frac{n \pi}{L} x}}_{\text{Fourier Series of a $2L$-periodic func.}}  \]
+}
+}
+
+\slide[Case 1: \small $u_t =\alpha u_{xx} \quad \text{with } \arr{r}{u(x,0)=u_0(x) \\ \text{for } x\in (0,L)}\quad \text{and }u(0,t)=u(L,t)=0 $]{
+\twomini[.65]{.54}{.45}{
+\student{
+Only $\sin$ terms satisfy the BCs $\Rightarrow A_n=0$
+\algn{
+u(x,0) =\sum_{n=1}^{\infty}  B_n \sin\paren{\frac{n \pi}{L} x}
+}
+
+FS is 2L periodic, but $u_0$ is only defined for $x\in(0,L)$\\$\vdots$\\
+Extend $u_0$ as an odd func. for $x\in[-L,L]$
+
+}
+
+}{
+\tikzplot[\xcoord{2}{L} \xcoord{-2}{-L}]{2.5}{2.5}{1.75}{1.75}{x}{}{
+\draw[domain=0:1,  samples=50, thick] plot ({2*\x, 0.5 +0.6*\x*\x + 0.3*sin(15*deg(\x)) }) node[xshift=0.15em, yshift=-2em, fill=white, inner sep=0.3]{ \small $u_0(x)$};
+\student{\draw[domain=1:0,  samples=50, smooth, thick] plot ({-2*\x, -0.5 - 0.6*\x*\x - 0.3*sin(15*deg(\x)))}) node[xshift=1.2em, yshift=-2.3em, fill=white, inner sep=0.3, align=right]{ \small $u_0^{\rm odd}(x)$=odd periodic\\ extension};}
+}
+}
+
+\student{Then \[B_n = \frac{2}{2L} \intop _{-L}^L = \underbrace{\overbrace{ u_0^{\rm odd}(x)}^{\text{odd func.}} \overbrace{ \sin\paren{\frac{n \pi}{L} x}}^{\text{odd func.}} }_{\text{even func.}} dx = \frac{2}{L}\intop_0^L u_0(x)  \sin\paren{\frac{n \pi}{L} x} dx \]}
+}
+
+
+\slide[Case 2: \small $u_t =\alpha u_{xx} \quad \text{with } \arr{r}{u(x,0)=u_0(x) \\ \text{for } x\in (0,L)}\quad \text{and }u_x(0,t)=u_x(L,t)=0 $]{
+\twomini[.65]{.54}{.45}{
+\student{
+Only $\cos$ terms satisfy the BCs $\Rightarrow B_n=0$
+\algn{
+u(x,0) =\sum_{n=1}^{\infty}  A_n \cos\paren{\frac{n \pi}{L} x}
+}
+
+FS is 2L periodic, but $u_0$ is only defined for $x\in(0,L)$\\$\vdots$\\
+Extend $u_0$ as even func. for $x\in[-L,L]$
+
+}
+
+}{
+\tikzplot[\xcoord{2}{L} \xcoord{-2}{-L}]{2.5}{2.5}{1.75}{1.75}{x}{}{
+\draw[domain=0:1,  samples=50, thick] plot ({2*\x, 0.5 +0.6*\x*\x + 0.3*sin(15*deg(\x)) }) node[xshift=0.15em, yshift=-2em, fill=white, inner sep=0.3]{ \small $u_0(x)$};
+\student{\draw[domain=1:0,  samples=50, smooth, thick] plot ({-2*\x, 0.5 + 0.6*\x*\x + 0.3*sin(15*deg(\x)))}) node[xshift=0.8em, yshift=-4em, fill=white, inner sep=0.3, align=right]{ \small $u_0^{\rm even}(x)$=even periodic\\ extension};}
+}
+}
+
+\student{Then \[A_n = \frac{2}{2L} \intop _{-L}^L = \underbrace{\overbrace{ u_0^{\rm even}(x)}^{\text{even func.}} \overbrace{ \cos\paren{\frac{n \pi}{L} x}}^{\text{even func.}} }_{\text{even func.}} dx = \frac{2}{L}\intop_0^L u_0(x)  \cos\paren{\frac{n \pi}{L} x} dx \]}
+}
+
+
+ \end{document}

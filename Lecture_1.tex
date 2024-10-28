@@ -1,0 +1,236 @@
+\input{notes.tex}
+
+
+\iftoggle{dualscreen}{\setbeameroption{show notes on second screen=right}}{}
+
+\usepackage{empheq}
+
+
+\begin{document}
+\settoggle{covered}{true}
+\section{Introduction to DEs}
+\subsection{Overview}
+\slide[MATH 215/255: Elementary Differential Equations]{
+\vfill
+Lecture 1: Differential Equations
+\vfill
+\enum{
+
+\item What are they and why do we solve them?
+\item Terminology
+
+}\vfill
+}
+\subsection{Preliminaries}
+\slide[What is a Differential Equation?]{\vspace{-.5em}
+A differential equation (DE) is an equation involving an unknown function $y$ and atleast one derivative of $y$ w.r.t. an independent variable.
+\vfill
+\twomini[.45]{.02}{.98}{\hspace{.15cm}}{\itmz{
+\item [Given:]  A DE with an unknown function $y(t)$. \hfill  \student{e.x., $\carray{\dd{y}{t} = - 3 y(t) \\ \text{\uline{or}} \\ \\y\p = -3y}$}
+\item[Task:]  Find the function(s) $y(t)$.\hfill  \student{Solution: $y(t)=Ce^{-3t}$}
+}
+}
+\vfill
+DEs specify the rate of change of one variable (e.g., the position of an object) with respect to another (e.g., time).\vfill
+
+}
+\slide[Why do we solve/study DEs?]{
+DEs provide an intuitive way to describe many types of interactions (e.g., mechanical, biochemical, social, economic, etc.).\vfill
+Solving and analyzing DEs allows us to:
+\vfill
+\enum{\item Make predictions about the future (forecasting). \vfill \subitem{Will some variable grow unboundedly? Oscillate? Decay to zero? \vfill \item With what rate will those things happen? } \vfill \item Test  mechanisms that may explain experimental data. \vfill \subitem{e.g., determine why a variable sometimes oscillates vs. equilibrates? }}
+}
+
+\slide[Example: Skydiving \hspace{2em}\begin{minipage}{0.25\textwidth}{ \includegraphics[height=1cm]{images/airplane.pdf}}\end{minipage} ]{\vspace{-2em}
+\begin{center}
+\includegraphics[height=1.5cm]{images/skydiver_solo.pdf}
+\end{center}\vspace{-1.5em}
+Newton's Second Law:\[F=ma\]\vspace{-2em}
+\student{\algn{
+ma(t) &= \underbrace{-mg}_{\text{gravitational force}} \hspace{2em} \underbrace{-\mu v(t)}_{\text{drag force}}
+}}
+
+\vspace{-1.25em} Rewrite as: 
+\vfill
+\threemini[.33]{.3}{.3}{.3}{
+\small{1$^{\text{st}}$ order linear ODE}
+\student{\algn{\text{sub. }a&=v\p\\ \Aboxed{ mv\p&=-mg-\mu v}}}
+}{
+\small{2$^{\text{nd}}$ order linear ODE}
+\student{\algn{\text{sub. }a&=x\pp, \quad v=x\p\\ \Aboxed{mx\pp&=-mg-\mu x\p}}}
+}{
+\small{1$^{\text{st}}$ order linear system}
+\student{
+\begin{empheq}[box=\fbox]{align*}
+x\p&=v\\ mv\p&=-mg-\mu v
+\end{empheq}
+}
+}\vfill
+We will learn different methods to solve these three types of DEs.
+}
+
+\slide[Example: Ecology \hfill - \hfill Lotka-Volterra Model]{\vspace{-0.75em}
+ Predator-Prey Model, 2 variables:\vfill $x=$ prey population and $y=$ predator population
+\[\dd{x}{t} = \alpha x - \beta x y,\qquad \dd{y}{t} = \delta xy - \gamma y \quad  \student{\text{1$^{\text{st}}$ order nonlinear system}}\]
+
+We can prove that only these two solutions types are possible\vfill
+\twomini[.5]{.5}{.5}{
+\centering
+Mutual Extinction \vfill
+\includegraphics[width=.9\columnwidth]{images/LV_death.pdf}
+}{
+\centering
+Predator-Prey  Oscillations \vfill
+\includegraphics[width=.9\columnwidth]{images/LV_oscillations.pdf}
+}
+
+}
+
+\subsection{Terminology}
+
+
+\slide[Terminology: ODEs vs PDEs]{\vspace{-1em}
+\itmz{
+\item Ordinary differential equation (ODE) \student{\hfill weeks 1-10}\vfill
+\student{\subitem{A DE with derivatives w.r.t. only one independent variable. \vfill\item \ex{} $\underbrace{\dd{y}{t} = y(t) + 3}_{\text{1$^{st}$ order linear ODE}} \qquad \text{or} \qquad \underbrace{\dd{y}{t} = \sin(y) + \cos(t)}_{\text{1$^{st}$ order nonlinear ODE}} $ }}\vfill
+\item Partial differential equation (PDE) \student{\hfill weeks 11-13}
+\student{\vfill\subitem{A DE with derivatives w.r.t multiple independent variables. \vfill
+\item \ex{Temperature of a metal rod, given by $u(x,t)$.} \\~\\ Heat/Diffusion eq: $\pd{u}{t} = D\pdn{u}{x}{2}$ \hfill - \hfill 2$^{\text{nd}}$ order linear PDE\vfill
+
+}
+}
+\student{ Partial derivatives are necessary for solutions to agree when changing coordinate systems (e.g., switch from cartesian to polar coordinates)}
+}
+}
+
+
+\slide[Terminology: Order of a DE]{
+The highest derivative that appears in the DE.\vfill
+\itmz{
+\item $y\p=y+3$ \hspace{2em} \student{first order}\vfill
+\item  $y\p=y^2+9$  \hspace{2em} \student{first order}\vfill
+\item  $\left(\dd{y}{t}\right)^2=\tan(t)$  \hspace{2em} \student{first order}\vfill
+\item  $y\pp=-y$  \hspace{2em} \student{second order}\vfill
+\item  $\ddn{y}{x}{4}=ky$  \hspace{2em} \student{fourth order}\vfill
+}\vfill
+}
+
+\slide[Terminology: Operator Form  \hfill $\Rightarrow$ \hfill $\op{y(t)} = f(t)$]{\vspace{-0.5em}
+Everything that depends on the unknown function goes on one side of the equal sign and everything else on the other.\vfill
+\subitem{ $\dd{y}{t} = y(t) + 3 \quad \to \quad \student{\dd{y}{t} - y(t) = 3}$ \vfill \student{\subitem{$\op{y}=y\p-y, \quad f(t) = 3$}}\vfill
+\item  $\dd{y}{t} =\sin(y) + \cos(t) \quad \to \quad \student{\dd{y}{t} - \sin(y) = \cos(t)}$ \vfill \student{\subitem{$\op{y}=y\p-\sin(y), \quad f(t) = \cos(t)$}\vfill}
+}
+\vfill
+
+
+}
+
+\slide[Terminology: Operator Form  \hfill $\Rightarrow$ \hfill $\op{y(t)} = f(t)$]{\vspace{-0.5em}
+
+The operator $\op{\cdot}$ encodes the "intrinsic" dynamics that the ODE is modelling.  \student{\subitem{Force-displacement relationship of a spring. \item Velocity-drag relationship of a viscous fluid.}}\vfill
+\student{In many physics-based applications, $\op{\cdot}$ does not depend explicitly on the independent variable $t$.}
+\vfill
+$f(t)$ is often called the (external) forcing term.\\~\\ \student{It typically accounts for external influences that could be varied or turned off.}
+
+}
+
+\slide[Terminology: Linearity of DEs \hfill - \hfill $\op{y(t)} = f(t)$ ]{
+If the operator $\op{\cdot}$ is linear, then the DE is linear.
+\vfill
+\uline{Conditions for linearity:}\vfill
+Given any two functions $f$ and $g$ and a constant $c$,  $\op{\cdot}$ is linear if
+\vfill
+\enum{
+\item ~ \student{ $\op{f+g}=\op{f}+\op{g}$}\vfill
+\item ~ \student{ $\op{cf}=c\op{f}$}\vfill
+}
+
+}
+
+
+\slide[Terminology: Linearity of DEs \hfill - \hfill $\op{y(t)} = f(t)$ ]{
+If the operator $\op{\cdot}$ is linear, then the DE is linear.
+\vfill
+
+\uline{In practice:} \\~\\
+
+Does the operator have either of the following:\enum{ \item any nonlinear functions of $y$ (or its derivatives) or \item any products of $y$ and its derivatives}\vfill
+\threemini[0.3]{0.3}{0.3}{.3}{
+\ex{$\op{y}=y''+y$}\\~\\~\\
+\centering
+\student{Linear}
+}{
+\ex{$\op{y}=y'+\sin(y'')$}\\~\\~\\
+\centering
+\student{Nonlinear}
+}{
+\ex{$\op{y}=y\p+y\p y$}\\~\\~\\
+\centering
+\student{Nonlinear}
+}
+\vfill
+}
+\begin{comment}
+\slide[Terminology: Autonomous DEs \hfill - \hfill $\op{y(t)} = f(t)$]{
+If both $\op{\cdot}$ and $f(t)$ do not explicitly depend on the independent variable, then the DE is autonomous. \vfill 
+
+\itmz{
+\item $y\p=y$  \student{  $\to \quad y\p-y=0$ \hfill Autonomous}
+\item  $y\p=y^2+3$   \student{  $\to \quad \dd{y}{t}-y^2=3$ \hfill Autonomous}
+\item  $\dd{y}{t}=y+\tan(t)$   \student{  $\to \quad \dd{y}{t}-y=\tan(t)$ \hfill Non-autonomous}
+\item  $\dd{y}{t}=-3ty$  \student{  $\to \quad \dd{y}{t}+3ty=0$ \hfill Non-autonomous}
+
+}
+\vfill
+$f(t)$ is often called the (external) forcing term. \vfill \student{ constant or zero-forcing $\Rightarrow$ Autonomous DE }
+
+}
+
+\slide[Classifying ODEs]{
+\itmz{\item $x\pp + x^2 = t$ \subitem{Order: \student{2} \item Linear: \student{No} \item Autnomous: \student{No}}\vfill
+\item $\ddn{x}{t}{4} = 0$ \subitem{Order: \student{4} \item Linear: \student{Yes} \item Autnomous: \student{Yes}}
+}
+}
+\end{comment}
+\slide[Terminology: Solution to an ODE]{
+A solution of an ODE is a function that satisifes the ODE.\vfill
+\ex{Is $y=Ce^{-t}+t-1$ a solution to $y\p+y=t$?}
+\student{
+\algn{\text{compute derivative(s): \quad \qquad}y\p&=-Ce^{-t}+1\\
+\text{evaluate ODE: }\;\; \qquad\qquad y\p+y&=\cancel{-Ce^{-t}}+\cancel{1} + \cancel{  Ce^{-t}}+t-\cancel{1}\\
+&=t\quad \checkmark
+}}Here $C$ is an arbitrary constant that can have any value.\vfill
+\settoggle{covered}{false}
+Any solution with an arbitrary constant is called a \student{\uline{general solution}}
+\vfill
+A solution with no arbitrary constants is called a \student{\uline{particular solution}}
+\vfill \centering
+\student{We eliminate arbitrary constant by using  constraints }
+
+ 
+\vfill
+}
+
+\slide[Initial Value Problems]{\vspace{-0.75em}
+Add a constraint at $t=t_0$, e.g. \[\op{y} =f(t), \text{ with } y(t_0)=y_0,\] where $t_0$ and $y_0$ are numerical values (usually real-valued).
+\vfill
+\ex{Find the particular solution to $y\p+y=t$ with $y(0)=4$?}\vfill
+\student{
+Start with the general solution
+\algn{y(t)&=Ce^{-t}+t-1\intertext{evaluate at $t=t_0=0$, make that equal to $y_0=4$}
+y(0) &= C-1 =  4 \quad \Rightarrow C=5\\
+\Aboxed{y(t) &=5e^{-t}+t-1}}}
+}
+
+\slide[Summary]{
+\enum{\item What are DEs?
+\subitem{Equations involving unknown function(s) and function derivatives. \item Specify rates of change of certain quantities. \item Useful for modelling many natural phenomena.}\vfill
+\item Terminology \subitem{ODEs (\& PDEs). 
+\item Order of DEs, Linear DEs, Solutions to DEs.}\vfill
+\item Initial Value Problems  \subitem{ A straightforward way to obtain a unique solution. \item Specify solution value at some initial time $t_0$.}
+}
+
+}
+
+
+\end{document}

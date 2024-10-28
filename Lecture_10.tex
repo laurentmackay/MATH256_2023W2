@@ -1,0 +1,146 @@
+\input{notes.tex}
+
+\iftoggle{dualscreen}{\setbeameroption{show notes on second screen=right}}{}
+
+
+\begin{document}
+\section{Lecture 10}
+\subsection{Introduction}
+
+\settoggle{covered}{true}
+\slide[Linear Second Order Non-Constant Cofficient IVPs]{\vspace{-1em}
+\[p(t)y''+q(t)y'+r(t)y = g(t), \quad \text{with } y(t_0)=y_0, y'(t_0)=v_0 \]
+
+\vfill
+\uline{Homogeneous Problems ($g(t)=0$):}
+\vfill
+Find two linearly independent solutions  $y_1$ and $y_2$.\[\text{Superposition: }\quad y=c_1y_1+c_2y_2\]
+\vfill
+Methods:\vfill
+Reduction of Order \hfill  \uline{or}\hfill  Ansatz Method
+\vfill
+\vfill
+\uline{Inhomogeneous Problems ($g(t)\neq0$):} $y=c_1y_1+c_2y_2+y_p$
+\vfill
+Reduction of Order\hfill  \uline{or}\hfill $\underset{\text{(only works if you are lucky)}}{\text{Method of Undetermined Coefficients}}$
+
+
+}
+\slide[Euler Equations: \hfill $at^2y''+bty'+cy=0$ \hfill]{\vspace{-0.75em}
+
+Guess: $y=t^k$
+\student{$\qquad y'=kt^{k-1}\qquad y''=k(k-1)t^{k-2}$
+\vfill
+\algn{
+ak(k-1)\underbrace{t^2t^{k-2}}_{t^k}+bk\underbrace{tt^{k-1}}_{t^k}&+ct^k=0\\
+\underbrace{ak^2+(b-a)k+c}_{\text{char. poly.}}&=0&k&=\frac{-(b-a)\pm\sqrt{(b-a)^2-4ac}}{2a}}
+
+}
+}
+
+\slide[Euler Equations: \hfill $at^2y''+bty'+cy=0$ \hfill]{\vspace{-2.2em}
+\algn{\underbrace{ak^2+(b-a)k+c}_{\text{char. poly.}}&=0&k&=\frac{-(b-a)\pm\sqrt{(b-a)^2-4ac}}{2a}}
+
+Three Cases:
+\student{
+\enum{\item Real Distinct Roots: $y=c_1t^{k_1}+c_2t^{k_2}$\vfill
+\item Complex Conjugate Roots: $k=\alpha\pm i\beta\quad $ with $\alpha,\beta\in\mathbb{R}$
+\vspace{-0.6em}
+\algn{y_{1,2}&=t^{\alpha \pm i \beta} = t^\alpha t^{\pm i \beta } = t^\alpha e^{\ln\paren{t^{\pm i \beta }}} =  t^\alpha e^{\pm i\beta \ln(t)  }\\
+&=t^\alpha\paren{\cos(\beta \ln(t)) \pm i \sin(\beta \ln(t))} \quad \Rightarrow \arr{l}{y_1 = t^\alpha \cos(\beta \ln(t) )  \\ y_2 = t^\alpha \sin(\beta \ln(t) )}}\vfill
+\item Repeated real: $y=c_1t^k+c_2y_2\quad$ where $y_2(t)=??? \neq t^{k+1}$ 
+}
+}
+
+}
+\settoggle{covered}{false}
+
+\slide[Find one solution to\hfill  $t^2y''+3ty'+y=0$\hfill]{
+Guess: $y=t^k\qquad\Rightarrow\;\; y'=kt^{k-1}\quad\text{and}\quad y''=k(k-1)t^{k-2}$
+\student{\algn{k(k-1)t^k + 3t^k+t^k&=0\\
+k^2+(3-1)k+1&=0& k&=\frac{-2\pm\sqrt{4-4}}{2}= - 1} 
+
+So we find one solution \[y_1=t^{-1}\]
+
+\vfill
+
+How can we find $y_2$?
+\vfill
+\centerline{The trick of multiplying by $t$ does not work :(}
+\vfill
+}
+
+}
+
+\slide[Find the second solution to\hfill  $t^2y''+3ty'+y=0$\hfill]{\vspace{-1em}
+Guess: $y_2=u(t)y_1$ where $u(t)$ is unknown and $y_1=t^{-1}$
+\student{\[y_2' = u't^{-1}-ut^{-2},\qquad y_2''=u''t^{-1}-u't^{-2}-u't^{-2}+2ut^{-3} \]
+Plug into DE:
+\algn{t^2(u''t-2u't^{-2}+2ut^{-3})+3t(u't^{-1}-ut^{-2})+ut^{-1}&=0\\
+u''t+(-2+3)u'+(2-3+1)ut^{-1}&=0\\
+u''t+u'&=0\intertext{let $w=u'$}  tw'+w=0 \;\; \text{first order linear ODE $\quad \Rightarrow \;\; $ integrating factor }\\
+w'+\frac1t w =0 \quad \Rightarrow \mu(t) = e^{\intop \frac1t dt} = e^{\ln|t|}  = t\\
+tw(t) = C \quad \Rightarrow w=C/t\\
+u'=w=C/t \Rightarrow u(t)=\int C/t dt = C \ln(t) \Rightarrow \quad  \Aboxed{y_2 &= t^{-1} \ln(t)}}
+}
+
+}
+
+\slide[ Reduction of Order: $p(t)y''+q(t)y'+r(t)y = 0$]{
+\enum{
+\item Given one solution $y_1(t)$, guess $y_2=u(t)y_1$ where $u(t)$ is unknown
+\vfill
+\item Plug $y_2$ into ODE. If you are lucky all the terms with $u(t)$ will cancel. 
+\subitem{ New ODE for $u(t)$: \hfill $s(t)u''+v(t)u'=0$ \hfill  (2$^{nd}$ order $\rightarrow$ 1$^{st}$ order)\item Let $w=u'$\hfill  $ \Rightarrow $\hspace{2em}$ w'+\frac{v(t)}{s(t)}w=0$ \hfill ~ \item Integrating factor: $\mu(t) = e^{\intop \frac{v(t)}{s(t)}  dt} \;\; \Rightarrow \;\; w=C/\mu(t)$ 
+\item Then $u(t) = \intop 1/\mu(t) dt$\hfill (without loss of generality, set  $C=1$) }
+\vfill
+\item General Solution:
+\vspace{-1.25em}
+\[y_h = c_1 y_1(t)+c_2y_1(t) \intop 1/\mu(t) dt\]
+
+}
+\vfill
+Note: This method only works if you already have $y_1(t)$.
+}
+
+\slide[ Suppose that $y_1=\frac{1}{1+t}$ solves \hfill $-\frac12(1+t) y''+ty'+y=0$ \hfill,]{
+ find $y_2$.\student{
+Guess: $y_2=\frac{u(y)}{1+t}, \quad y_2'=\frac{u'}{1+t}-\frac{u}{(1+t)^2},$ \[  y_2''=\frac{u''}{1+t}-\frac{u'}{(1+t)^2}-\frac{u'}{(1+t)^2}+2\frac{u}{(1+t)^3} \]
+\algn{-\frac12(1+t)\paren{\frac{u''}{1+t}-2\frac{u'}{(1+t)^2}+2\frac{u}{(1+t)^3}}+&t\paren{\frac{u'}{1+t}-\frac{u}{(1+t)^2}}\\ + \frac{u(y)}{1+t}&=0\\
+-\frac12u''+\cancel{(1+t)}\frac{u'}{\cancel{1+t}}+\cancelto{\text{\small -1}}{(-t-1)}\;\frac{u}{(1+t)^{\cancel{2}}}+\frac{u}{1+t}&=0\\
+-\frac12 u'' + u' &=0\intertext{let $w=u'$, $\qquad \Rightarrow -\frac12w'+w=0$}
+}
+}
+}
+
+\slide{\[-\frac12w'+w=0\]
+\student{\algn{
+w'-2w&=0 &\Rightarrow \mu&=e^{\intop -2dt}=e^{-2t}\\
+\mu w = e^{-2t}&=C&\Rightarrow w&=Ce^{2t}\\\\
+u=\intop w dt &=\intop C e^{2t} dt = \frac{C}{2} e^{2t} \\\\
+y_2&=\frac{u}{1+t} &
+\Aboxed{y_2&= \frac{e^{2t}}{1+t}}
+}
+}
+}
+
+\slide[Given that $y_1=t^2$ solves \hfill $y''-2t^{-2}y=0$ \hfill find $y_2$.]{
+\student{
+Guess: $y_2=u(t)t^2,\quad y_2'=u't^2+2tu,\quad y_2''=u''t^2+2tu'+2u+2tu'$\vfill
+\algn{u''t^2+4tu'+2u-2t^{-2}ut^{2}&=0\\
+u''t^2+4tu'&=0\intertext{let $w=u'$}
+t^2w'+4tu'&=0 && \text{\uline{integrating factor}}\\
+w'+\frac4t w&=0 & \mu&=e^{4\intop \frac1t dt} = e^{4\ln(t)} = t^4\\
+w=1/\mu(t) = t^{-4}&&u(t)&=\intop  w dt=\intop t^{-4} dt\\
+&&& = -\frac{1}{3} t^{-3}\\
+&&\Aboxed{y_2&=t^{-3}y_1(t)=t^{-1}}
+}
+\vfill
+}
+}
+
+
+
+
+
+\end{document}

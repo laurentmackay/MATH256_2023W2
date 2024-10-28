@@ -1,0 +1,155 @@
+\input{notes.tex}
+
+\iftoggle{dualscreen}{\setbeameroption{show notes on second screen=right}}{}
+%\settoggle{covered}{true}
+\begin{document}
+
+
+\section{Lecture 3}
+
+\subsection{Review}
+\slide[Recall:]{
+\[y'+ay = g(t) \qquad \text{with }g(t)\neq0\]
+has the \uline{general} solution \[y=y_h+y_p\qquad \text{where } y_h = Ce^{-at}\]
+\vfill
+$y_h'+ay_h=0$,  so we need $y_p$ and its derivative to be related to $g(t)$.
+\vfill
+\uline{Idea:}\vfill
+
+\student{Make $y_p$ a linear combination of all the functional forms contained in $g(t)$ and all the functions obtained from differentiating $g(t)$}
+
+
+
+}
+
+\subsection{Method of Undetermined Coefficients}
+\slide[Method of Undetermined Coefficients]{\vspace{-1.5em}
+\[y'+ay=g(t)\]
+\vfill
+\ex{$y'-y=t^3 \implies y_h = Ce^t$}
+
+\vfill
+
+To find $y_p$:
+\enum{\item Find the functional forms obtained from differentiating $g(t)$.
+\ex{$g(t)=t^3$}
+\student{\algn{g'&=3\uline{t^2}\\
+g''&=6\uline{t}\\
+g'''&=\uline{6} \qquad \text{(constant)}
+}
+\[\text{family of functional forms }  = \{t^3, t^2, t, \text{constant}\}\]
+}\vspace{-1em}
+\item Take a linear combintation of all the functional forms you find.
+\student{\[y_p=At^3+Bt^2+Ct+D\]}
+}
+}
+
+\slide[Method of Undetermined Coefficients]{\vspace{-1em}
+To find $y_p$:
+\enum{\item Find the functional forms obtained from differentiating $g(t)$.
+\item Take a linear combintation of all the functional forms you find.
+\item Plug the guess back into the ODE, solve for coefficients.
+
+\ex{$y'-y=t^3$}
+\student{\vfill\algn{y_p&=At^3+Bt^2+Ct+D \qquad 
+y_p'=3At^2+2Bt+C \quad\intertext{plug into DE}
+y'_p&-y_p=3At^2+2Bt+C - At^3-Bt^2-Ct-D=t^3}
+\[- At^3 +(3A-B)t^2+(2B-C)t+(C-D)=t^3\] 
+\vfill 
+}
+}}
+
+\slide[Method of Undetermined Coefficients]{\vspace{-1em}
+To find $y_p$:
+\enum{\item Find the functional forms obtained from differentiating $g(t)$.
+\item Take a linear combintation of all the functional forms you find.
+\item Plug the guess back into the ODE, solve for coefficients.
+
+\ex{$y'-y=t^3$}
+\[- At^3 +(3A-B)t^2+(2B-C)t+(C-D)=t^3\]
+match coeffs. for each function of t
+\student{\algn{
+&\uline{t^3:}\;\;-A=1 \implies \boxed{A=-1}\\
+&\uline{t^2:}\;\;3A-B=0\implies \boxed{B=-3}\\ &\uline{t^1:}\;\;2B-C=0\implies\boxed{ C=-6} \\
+&\uline{t^0:}\;\;C-D=0 \implies \boxed{D=-6} }
+\[\boxed{ y_p = -t^3-3t^2-6t-6}\]
+}
+
+}
+}
+
+
+\slide[Find the general solution to $y\p-5y=e^t$ ]{
+
+\student{
+\algn{y_h&=Ce^{5t}\\ \text{Family of functional forms: }&\{e^t \}\\
+\text{Guess: }& y_p=Ae^t\\
+\text{Substitute: }& Ae^t - 5Ae^t = e^t\\
+\text{Solve}& \text{ for A:}\\
+-4Ae^t=e^t &\Rightarrow A=-\frac14\\
+y_p&=-\frac14e^t\\
+\Aboxed{y &= C e^{5t}-\frac14e^t}}
+}
+}
+
+\slide[Find the general solution to $y\p+y=\sin(t)$ ]{
+\vspace{-2em}
+\student{
+\algn{y_h&=Ce^{-t}\\ \text{Family of functional forms: }&\{\sin(t),\cos(t)\}\\ \text{Guess: }&
+y_p=A\sin(t)+B\cos(t)\intertext{Sub into DE:}
+A\cos(t) - B\sin(t) &+A\sin(t)+B\cos(t) = \sin(t)\\
+(A-B)\sin(t) +& (A+B)\cos(t) = \sin(t)}
+Group by funcs of t:
+\algn{
+\uline{\sin(t):}\;\;&A-B=1  &\uline{\cos(t):}\;\;&A+B=0 \Rightarrow A=-B\\
+&-2B=1 \implies B=-\frac12 &&\implies A=\frac12\\
+y_p&=\frac12 (\sin(t)-\cos(t)) &\Aboxed{y(t)&=Ce^{-t}+\frac12 \paren{\sin(t)-\cos(t)}}}
+}
+
+\vfill
+}
+
+
+\slide[Find the general solution to $y\p-5y=e^{5t}$ ]{
+\vspace{-1.5em}
+\student{
+\algn{y_h=Ce^{5t}&\\ \text{Family of functional forms: }&\{e^{5t} \}}
+
+\twomini{.45}{.55}{
+\algn{
+\text{Guess: }& y_p=Ae^{5t}\\
+\text{Substitute: }&\\ A5e^{5t} - 5Ae^{5t} &= e^{5t}\\
+0=&e^{5t}}\centering 
+We are stuck :(
+
+\vspace{1em}
+This is called \uline{mathematical resonance},
+one of the functional forms is proportional to $y_h$.
+}{\algn{
+\text{Guess: }& y_p=tAe^{5t}\\
+\text{Compute Derivative': } &\\ y_p'=Ae^{5t}&+5tAe^{5t}\\
+\text{Substitute: }&\\
+Ae^{5t}+5tAe^{5t}& - 5Ae^t = e^{5t}\\
+\text{Solve}& \text{ for A:}\\
+Ae^{5t}=e^{5t} &\Rightarrow A=1\\
+y_p&=Ae^{5t}\\
+\Aboxed{y = C e^{5t}&+te^{5t}}}
+}
+}
+}
+
+
+\subsection{Summary}
+\slide[Summary of Lecture 3]{\vspace{-.25em}
+Method of Undetermined Coefficients:\vspace{-.5em}
+\[y'+ay=g(t)\]\vspace{-.75em}
+\uline{General Solution:} \[y=y_h+y_p\qquad \text{where } y_h = Ce^{-at}\]
+\vspace{-1.25em}
+\enum{\item Find the functional forms obtained from differentiating $g(t)$.
+\item Take a linear combintation of all the functional forms you find.
+\subitem{If any of the functional forms are $e^{-at}$ swap for $te^{at}$}
+\item Plug the guess back into the ODE, solve for coefficients.
+}\vspace{1.75em}
+\uline{Note:} this will not work if there infinitely many functional forms.\vfill \subitem{e.g., $g(t)=t^{-1}$ \hspace{2em} \student{family $=\{t^{-1}, t^{-2}, t^{-3},... \}$}}\vfill
+}
+\end{document}

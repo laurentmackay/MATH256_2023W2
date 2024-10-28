@@ -1,0 +1,198 @@
+\input{notes.tex}
+
+\iftoggle{dualscreen}{\setbeameroption{show notes on second screen=right}}{}
+%\settoggle{covered}{true}
+\begin{document}
+
+
+\section{Lecture 2}
+
+\subsection{Review of integration}
+
+\slide[Review: Evaluating Integrals]{
+Indefinite integrals OR antiderivatives \[F(t)  = \int f(t) dt\]
+\student{Only defined up to an (arbitrary) additive constant \[\dd{}{t} \left[F(t)+C\right] = f(t)\]
+%\centerline{ arbitrary constant $\Rightarrow$ a \uline{general solution}}.
+
+ }
+\vfill
+Definite integrals \algn{\int_{t_0}^t f(s) ds &=\student{ F(t)+\cancel{C}-\left(F(t_0) + \cancel{C}\right)}\\&= \student{F(t)-F(t_0)}}
+%\student{\centerline{no arbitrary constant $\Rightarrow$ a \uline{particular solution}}}
+
+}
+
+\slide[Intuitive approach to integrating a DE]{
+Suppose we have $y\p=f(t)$ with an initial condition $y(0)=y_0$, then we can find the \uline{general} solution with \[ y(t) =\intop f(t) \text{d}t= F(t) + C,\]  and then use the initial condition to find the \uline{particular} solution.
+
+\vfill
+
+\ex{Solve $y\p=e^{-3t}$ with $y(0)=2.$}
+\student{\algn{y(t) &= \int e^{-3t}dt = -\frac13e^{-3t}+C &\text{\uline{general} solution}\\
+y(0)=2&=-\frac13+C \implies C=\frac73\\
+y(t)&=\frac73 -\frac13e^{-3t} &\text{\uline{particular} solution}
+}
+Particular solutions have NO arbitrary constants.
+}
+
+}
+
+
+\slide[Integration becomes harder once we have $y'=f(y,t)$. ]{
+\ex{Solve $y'=2y^2t$ with y(0)=1/4. }
+\vfill
+\uline{hint}: $\dd{y}{t}=g(y)h(t) \Leftrightarrow \frac{\text{d}y}{g(y)} = h(t)dt $. \hfill(seperable equation)
+\vfill
+\student{
+\algn{
+\frac{\text{d}y}{y^2} & =2t\text{d}t   & \intop \frac{\text{d}y}{y^2} & = 2 \intop t\text{d}t\\
+\Rightarrow -\frac1y&=t^2+C &  \frac1y&=- t^2+C \\
+y&=\frac{1}{C-t^2}\intertext{initial condition $y(0)=1/4$}
+y(0)&=\frac1C=\frac14 \Rightarrow C=4 \Aboxed{y(t)=\frac{1}{4-t^2}}
+}
+Solution blows up to $+\infty$ at $t=2$.
+}
+
+}
+
+
+\slide[Integration becomes harder once we have $f=f(y,t)$. ]{ 
+\ex{Try to solve $y\p=-ay+t^3$ where $a$ is some constant.}
+\vfill
+\student{
+Lets try a similar strategy
+\algn{\dd{y}{t}+ay&=t^3\\
+\text{d}y + ay \text{d}t& =t^3dt\\
+y(t) +a\intop y(t)\text{d}t &=\frac{t^4}{4}+C}\vfill
+\centerline{We dont know $y(t)$, so can't integrate it. \hfill $\Rightarrow$ \hfill Need more tricks}\vfill
+}
+}
+
+
+
+\subsection{Existence and uniqueness}
+
+\slide[Can we always integrate $y\p=f(y,t)$?]{
+Potential issues:
+\itmz{\item Does the integral exist?
+\student{\subitem{Does not mean: Can you solve the integral? \item Means: Does the derivative have a well-defined value for all time?
+\item e.g., $y\p = \frac{y}{t-1}$  is undefined at $t=1$.\subitem{Solutions may not be defined for all values of the indep. variable.}
+}
+}\vfill
+\item Is there only one solution $y(t)$?
+\student{\subitem{Yes if and only if: \enum{\item $f(y,t)$ is well-defined and \item  differentiable in $y$ everywhere along the solution $y(t)$.} \item Need to specify initial conditions to get a unique particular solution.}}
+
+}
+}
+\subsection{Classifying DEs and their Solution Structure}
+\slide[Classifying differential equations]{
+\itmz{ \item \uline{Linear} first-order:  $\quad y\p+p(t) y = g(t); \qquad y(t_0)=y_0$\vfill
+\subitem{\student{Linear  with respect to $y$, $y\p$, $y\pp \dots$, $p(t)$doesn't matter for linearity.}\vfill
+
+\item \uline{Homogeneous}:\student{$g(t)=0$}\vfill
+\item \uline{Inhomogeneous}:\student{$g(t)$ is not zero everywhere.}\vfill
+\item Constant coefficient $p(t)=a$, with constant $a$.
+\student{\vfill\subitem{Solvable if $g(t)$ is ``nice'', and has unique solutions.}\vfill}
+
+}\vfill
+}
+}
+
+\slide[Solution Structure of Linear DEs \hfill ]{
+\vspace{-1em}
+
+The linear ODE \vspace{-.25em}\[\op{y}=g(t) \hspace{3em} \text{ \footnotesize\ex{$y'+ay=t^3$ is a 1$^{\rm st}$ order linear ODE}}\]
+
+
+always has the \uline{general} solution structure
+\algn{y(t)&= Cy_h(t) +y_p(t) & \text{where $y_h$ is the \uline{general} solution to } \op{y_h}=0 \\
+&&\text{(i.e., the \alert{associated homogeneous problem}),}\phantom{\underset{A}{=}}\\
+&&\text{$y_p$ is a \uline{particular} solution to }  \op{y_p}=g(t),\phantom{\underset{A}{=}}\\
+&&\text{and $C $ is any constant.}}
+
+
+\vfill
+
+\uline{Proof:}
+
+\vfill
+\student{
+\algn{\op{y(t)}=\op{Cy_h+y_p} &\overset{\text{Linearity 1}}{=} \op{Cy_h}+\op{y_p}\\
+&\overset{\text{Linearity 2}}{=} C\underbrace{\op{y_h}}_{=0}+\underbrace{\op{y_p}}_{=g(t)}=g(t)
+}
+}\vfill
+}
+
+
+
+\subsection{First-Order DEs with Constant Coefficients}
+
+\slide[First-Order Homogeneous Constant Coefficient Equations]{\vspace{-1em}
+\[ y\p+ay=0 \] where $a\neq 0$ is a constant.
+\vfill
+General solution:
+\student{
+\algn{\dd{y}{t} + a y &= 0 & \Rightarrow \dd{y}{t} &= -ay \\  \frac1y \dd{y}{t} &= -a  &\Rightarrow \int \frac{\text{d}y}{y}& = -\int a \text{d}t \\\\
+\ln{|y|} &= -at+C_1 & \Rightarrow e^{\ln{|y|}} &= e^{-at+C_1}\\
+|y|&=e^{-at}\underbrace{e^{C_1}}_{C_2} &\Rightarrow \quad  y=&\underbrace{\pm C_2}_{C} e^{-at}  \\
+}\vspace{-2em}
+\[\boxed{y(t) = Ce^{-at}}}\]
+\vfill
+}
+
+\slide{
+The ODE \[y'+2y = t\] has a \uline{particular} solution given by  $y_p=\frac12 t - \frac14$.
+\vfill
+Find the general solution, and then solve the following IVP: \[y'+2y = t, \quad \text{with } y(0)=-1.\] 
+\student{General Solution:
+\[y(t)=Ce^{-2t} + \frac12 t -\frac14 \]
+Impose the initial condtion constraint $y(0)=-1$
+\[y(0) = C -\frac14  = -1\qquad \Rightarrow C = -\frac34\]
+\[\boxed{y(t) = -\frac34 e^{-2t} +  \frac12 t -\frac14 }\]
+\vfill
+\uline{Note:} $y_p$ alone can only solve an IVP with $y(0)=-1/4$
+}
+
+}
+
+\slide{\vspace{-.75em}
+The ODE \[\frac13 y' = y +\frac13 e^{3t}\] has a \uline{particular} solution given by  $y_p=t e^{3t}$.
+\vfill
+Find the general solution, and then solve the following IVP: \[\frac13 y' = y +\frac13 e^{3t}, \quad \text{with } y(0)=-1.\]
+\vfill
+\student{
+Re-arrange DE:
+\[y'-3y = e^{3t}\qquad \Rightarrow \qquad \text{Gen. Soln. }y(t)=Ce^{3t} + te^{3t}\]
+ initial condtion  $y(0)=-1$
+\[y(0) = C  = -1 \qquad \Rightarrow \qquad \boxed{y(t) = - e^{3t} + te^{3t} } \]\vfill
+\uline{Note:} $y_p$ alone can only solve an IVP with $y(0)=0$
+}
+
+}
+
+
+\subsection{Summary}
+\slide[Summary of Lecture 2]{
+\itmz{\item Integrating $y'=f(y,t)$ :
+
+\itmz{
+\item Indefinite integral (antiderivative) gives general solution.
+\vfill
+\item Can we always integrate a 1st order DE? \subitem{No, but we avoid those cases.}}
+\vfill
+\item Linear constant coefficient DEs: $y\p + a y = g(t)$\vfill
+\itmz{
+\item Solving the homogeneous problem: $y_h\p+ay_h=0 \Rightarrow y_h=Ce^{-at}$
+
+\vfill
+\subitem{General form of inhomogeneous solution: $y=y_h+y_p$ \vfill \item $y_p$ alone can only solve a unique IVP, but not the general case.}
+\vfill
+\item How do we find $y_p(t)$?
+\vfill
+\subitem{ ~\student{Next Lecture: Method of Undetermined Coefficients}}
+}
+}
+}
+
+
+\end{document}
+

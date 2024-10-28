@@ -1,0 +1,224 @@
+\input{notes.tex}
+
+\iftoggle{dualscreen}{\setbeameroption{show notes on second screen=right}}{}
+
+\usepackage{circuitikz}
+\newcommand{\circled}[1]{ \raisebox{.5pt}{\textcircled{\raisebox{-.9pt}{#1}}}}
+
+\begin{document}
+\section{Lecture 5}
+\subsection{Preamble}
+
+\slide[Recall:  Linear 1$^{st}$ Order ODEs \hfill $y\p +p(t) y = g(t)$]{
+Operator form: $\op{y}=g(t)$
+\vfill
+\itmz{
+\item Linear 1$^{st}$ order operator ${\text L}$
+\item $g(t)$ is called the \alert{inhomogeneity}\vfill
+\item Linear + $g(t)=0\quad \Rightarrow$ \alert{ Homogeneous ODE}\vfill
+\item Linear + $g(t)\neq0\quad \Rightarrow$ \alert{ Inhomogeneous ODE}\vfill
+}\vfill
+
+Solved by method of integrating factors:
+\algn{\mu(t) y(t) &= \intop \mu(t) g(t) dt + C\\
+y(t)& = \frac{ \intop \mu(t) g(t) dt}{ \mu(t)} + \underbrace{\frac{C}{ \mu(t)}}_{\text{indep. of $g(t)$}}}
+
+
+
+}
+
+\slide[General Solution Structure of Linear ODEs]{
+\ex{1$^{st}$ Order Initial Value Problems}
+ \[y\p +p(t) y = g(t); \qquad y(0)=y_0 \]\vspace{.5em}
+\vfill
+\twomini[.5]{.5}{.5}{
+\uline{ General Solution:}\algn{ y(t) &= \frac{ \intop \mu(t) g(t) dt}{ \mu(t)} + \frac{C}{ \mu(t)} \\\\ \student{y(t)} &\student{= \underbrace{y_p(t)}_{\text{particular part}} + \underbrace{y_h(t)}_{\text{homogeneous part}}}}\
+}{\uline{Associated Homogeneous Problem:}
+\algn{y_h'+p(t)y_h&=0 \quad\text{(i.e., $g(t)=0$)}\\\ \Rightarrow \quad y_h = \frac{C}{ \mu(t)} }
+}\vfill
+\student{
+\centering
+All linear DEs have this type of solution structure.
+\[ y(t) = \text{particular part + homogeneous part}\]
+}
+}
+
+\slide[ Linear 2$^{nd}$ order ODEs]{
+General DE: \student{\[y\pp +p(t)y\p +q(t)y=g(t)\]}Initial Conditions: \student{\[y(t_0)=y_0,\qquad y\p(t_0)=v_0\]}
+
+Focus on the  homogeneous case first\vfill
+\student{
+\uline{simplest case}: constant coefficients \[ ay\pp +by\p+cy=0\]
+\vfill
+\centering
+We want intuition for how to obtain and work with homogeneous solutions.
+
+}
+
+}%end slide
+\subsection{The Ansatz Methods}
+
+\slide[Find two solutions to $y''-2y'-3y=0$]{
+Based on the constant coefficient first-order DEs, guess $y=e^{rt}$
+\vfill
+\student{
+We call $e^{rt}$ an ansatz or ``trial solution'' \hfill (ansatz method)
+\vfill
+\algn{y'&=re^{rt} &y''&=r^2e^{rt}\\
+r^2e^{rt} & -2re^{rt}-3e^{rt}=0& \paren{r^2  -2r-3}&\cancel{e^{rt}}=0\\
+r^2 & -2r-3=0 &\text{(characteristic }&\text{polynomial)}}\vfill
+\[r=\frac{2\pm\sqrt{4+12}}{2} =\frac{2\pm\sqrt{16}}{2} =\frac{2\pm 4}{2} = 3,-1  \]
+\vfill
+two solutions:
+\algn{y_1&=e^{3t} &\text{\uline{and}}&&y_2&=e^{-t}}
+}
+}
+
+\slide[Find two solutions to $t^2y''-ty'-3y=0$]{
+Use an ansatz of $y=t^k$. \hfill (Check the logic by solving $ty'-ay=0$)
+\student{
+\algn{y'&=kt^{k-1} &y''&=k(k-1)t^{k-2}\\
+t^2k(k-1)t^{k-2}-&tkt^{k-1}-3t^k=0 &(k^2-&2k-3)\cancel{t^{k}}=0\\
+k^2 & -2k-3=0&\text{(characteristic }&\text{polynomial)}}\vfill
+\[k = \frac{2\pm\sqrt{4+12}}{2} = 3, -1 \]
+\vfill
+two solutions:
+\algn{y_1&=t^3 &\text{\uline{and}}&&y_2&=t^{-1}}
+}
+}
+\subsection{Theory of Linear ODEs}
+\slide[Superposition Principle for Linear Homogeneous ODEs]{
+Suppose the functions $y_1(t)$ and $y_2(t)$ both independently solve a \uline{linear} homogeneous ODE\[ \op{y}=0\] then \[y =c_1y_1(t) + c_2y_2(t)\] is also a solution to the same ODE.\vfill
+Proof:
+\student{
+\algn{\op{c_1y_1+c_2y_2} &\overset{\text{Linearity 1}}{=}  \op{c_1y_1}+\op{c_2y_2}\\
+&\overset{\text{Linearity 2}}{=} c_1\op{y_1} + c_2 \op{y_2}\\
+&\quad\;\; =c_1\cdot 0 + c_2 \cdot 0  \\&\quad\;\; = 0
+}}
+}
+
+\slide[Solve $y''-2y'-3y=0$ with $y(0)=1,\; y'(0)=0$.]{
+\student{
+General Solution
+\algn{y(t)&=c_1e^{3t}+c_2e^{-t}\intertext{initial conditions}
+y(0)&=c_1+c_2=1\quad \circled{1}\\
+y'(0)&=3c_1-c_2=0\quad \circled{2}&\Rightarrow c_2&=3c_1\quad \circled{3}\\
+\uline{\circled{3} \rightarrow \circled{1}\hspace{-.25em}:}\;\;&4c_1=1 &\Aboxed{c_1&=\frac14}\\
+&&\Aboxed{c_2&=\frac34}\\
+y(t)&=\frac14e^{3t}+\frac34e^{-t}}
+}
+
+}
+
+\slide[Solve $t^2y''-ty'-3y=0$ with $y(1)=2,\; y'(1)=1$.]{
+\student{
+General Solution
+\algn{y(t)&=c_1t^3+c_2t^{-1}\intertext{initial conditions}
+y(1)&=c_1+c_2=2 \quad \circled{1}\\
+y'(1)&=3c_1-c_2=1\quad \circled{2}\\
+\uline{\circled{1}+\circled{2}\hspace{-.25em}:}\;\; & 4c_1=3 & \Rightarrow \Aboxed{c_1&=\frac34}\quad \circled{3}\\
+\uline{\circled{3} \rightarrow \circled{1}\hspace{-.25em}:}\;\;& \frac34 +c_2 =2 & \Rightarrow \Aboxed{c_2&=\frac54}\\
+y(t)&=\frac34 t^3 + \frac54 t^{-1}}
+}
+}
+
+\slide[Satisfying Initial Conditions: The General Case]{\vspace{-1em}
+Given two functions $y_1$ and $y_2$ that both solve \vspace{-.25em}
+\[y''+p(t)y'+q(t)y=0 \qquad \text{with } y(t_0) = y_0, \quad y\p(t_0)=v_0, \]
+
+\vspace{-.25em}
+ then the general solution is 
+ \vspace{-.75em} 
+ \[y=c_1y_1+c_2y_2.\]
+ 
+ \vspace{-.25em}
+ \uline{Try to satisfy the initial condition}\vfill
+ \student{
+ @$t=t_0$
+ \twomini[0.25]{.45}{.55}{
+\algn{c_1 y_1 +c_2 y_2 &= y_0\\c_1y_1\p+c_2y_2\p&=v_0}
+ }{
+ \algn{\longrightarrow \mat{cc}{y_1&y_2\\y_1\p&y_2\p} \mat{c}{c_1\\c_2} &= \mat{c}{y_0\\v_0}\\   A \quad\qquad \vec{c} \quad &=  \quad \vec{b}}
+ }\vfill
+Solution: $ \qquad \vec{c}=A^{-1}\vec{b} \qquad \text{if $A^{-1}$ exists} \quad $ (i.e., if $\det A \neq 0$)
+\vfill
+\uline{Note:} $\det A$ is called the Wronskian determinant.
+ }
+}
+
+
+\subsection{The Wronskian}
+\slide[Wronskian Determinant]{
+For two differentiable functions, $y_1(t)$ and $y_2(t)$, the Wronskian determinant is denoted $W\left(y_1, y_2\right)(t)$, and is given by 
+\[ W\left(y_1, y_2\right)(t) = \left| \begin{array}{cc} y_1(t)&y_2(t)\\y_1\p(t)&y_2\p(t) \end{array} \right| = y_1(t)y_2\p(t)-y_2(t)y_1\p(t)\]
+\vfill
+\student{\subitem{$W\left(y_1, y_2\right)(t_0)\neq0 \implies y=c_1y_1+c_2y_2$ can satisfy ANY initial conditions at $t_0$.\vfill
+\item $W\left(y_1, y_2\right)(t)\neq0 $ for some $t$ is equivalent to stating that $y_1$ and $y_2$ are \uline{linearly independent} functions.  }}
+\vfill
+
+}
+
+
+\subsection{Linear Independece and Fundamental sets of solutions}
+\slide[Linear dependence of functions]{
+\itmz{
+\item Two functions $f(t)$ and $g(t)$ are \textbf{linearly dependent}  (or L.D.) if there exist a non-zero constant $k$
+such that \[f(t)= kg(t)  \quad \forall t\] 
+\vfill
+\twomini[.4]{.5}{.5}{
+Linearly Dependent\\
+\tikzplot{.1}{4.3}{1}{1.25}{t}{}{
+\draw[red ,domain=0:2.5, samples=120,  thick] plot ({\x}, {0.16*\x*\x}) node[right]{$f(t)=4t^2$};
+\draw[blue ,domain=0:2.5, samples=120,  thick] plot ({\x}, {0.04*\x*\x}) node[right, ]{$g(t)=t^2$};
+\draw[black ,domain=0:2.1, samples=120,  thick] plot ({\x}, {-0.08*\x*\x}) node[right, ]{$h(t)=-2t^2$};
+}
+}{
+Not Linearly Dependent\\
+\tikzplot{.1}{4}{.65}{1.65}{t}{}{
+\draw[black ,domain=0:2, samples=120,  thick] plot ({\x}, {0.06*exp(1.5*\x)}) node[right, xshift=-.2em]{$h(t)=e^{\frac{3}{2}t}$};
+\draw[red ,domain=0:2.5, samples=120,  thick] plot ({\x}, {0.06*exp(\x)}) node[right, xshift=-.6em, yshift=-.7em]{$f(t)=e^t$};
+\draw[blue ,domain=0:2.5, samples=120,  thick] plot ({\x}, {0.4*sin(4*deg(\x))}) node[right, yshift=-.6em, xshift=-2em]{$g(t)=\sin(t)$};
+}
+
+}
+\vfill
+\item If functions are not linearly dependent, then we say they are \textbf{linearly independent}  (or L.I.).
+\vfill
+
+}
+}
+
+\slide[Fundamental sets of solutions]{
+Suppose that $y_1(t)$ and $y_2(t)$ both solve a 2$^{nd}$ order linear homogeneous ODE\[\op{y}=0\]
+If $y_1$ and $y_2$ are \textbf{linearly independent} functions, then the we call the set \[\{y_1,y_2\}\] a \textbf{fundamental set of solutions}, and the general solution for all homogeneous problem IVPs is \[y_h(t)=c_1y_1(t)+c_2y_2(t)\]\vfill
+\alert{Take home message:} 
+\student{If you can find two \uline{linearly independent} solutions to a homogeneous 2$^{nd}$ order linear DE, then you have found all of them}\vfill
+Proof: DiffyQs \S 2.1 (Theorem 2.1.3)
+}
+
+\slide[Constant Coefficient IVP: The General Case]{\vspace{-1.5em}
+\[ay''+by'+cy=0 \qquad \text{with } y(t_0) = y_0, \quad y\p(t_0)=v_0.\]
+Guess $y=e^{rt}$.
+\student{
+\algn{ar^2e^{rt}+bre^{rt}+ce^{rt}=&0&
+ar^2+br+c&=0 \quad\text{(char. poly.)}\\
+r_{1,2} = \frac{-b\pm\sqrt{b^2-4ac}}{2a}&&\Rightarrow&\arr{l}{y_1=e^{r_1t}\\y_2=e^{r_2t}}\intertext{check for linear independence}
+W=e^{r_1t}r_2e^{r_2t}&-r_1e^{r_1t}e^{r_2t}\\
+=r_2e^{(r_1+r_2)t}&-r_1e^{(r_1+r_2)t}\\
+=(r_2-r_1)&e^{(r_1+r_2)t}\\ \neq 0\qquad\quad &\quad \quad  \text{if $r_1\neq r_2$} &\Rightarrow y_1 & \text{ and } y_2\text{ are L.I.}}
+Fundamental solution: $\quad y(t)=c_1e^{r_1t}+c_2e^{r_2t}$
+}
+}
+\subsection{Summary}
+\slide[Summary: 2$^{nd}$ Order Homogeneous ODEs]{
+\[y''+p(t)y'+q(t)y=0\]
+\itmz{
+\item Always has two linearly independent solutions $y_1$ and $y_2$.
+\subitem{Ansatz method allows us to guess them. \item Constant coefficients: $ay''+by'+cy=0 \;\; \Rightarrow y=e^{rt}$}\vfill
+\item Superposition Principle: \subitem{The linear combination $y=c_1y_1+c_2y_2$ also solves the homogeneous ODE.}\vfill
+\item Fundamental Solutions: \subitem{Linear combinations of $y_1$ and $y_2$ can solve all IVPs.\item Use the Wronskian to determine linear independence and establish a fundamental set of solutions.
+}
+}
+}
+
+\end{document}

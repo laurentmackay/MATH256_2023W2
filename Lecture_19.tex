@@ -1,0 +1,219 @@
+\input{notes.tex}
+\iftoggle{dualscreen}{\setbeameroption{show notes on second screen=right}}{}
+
+
+\begin{document}
+\section{Lecture 19}
+\settoggle{covered}{true}
+\subsection{Preamble}
+\slide[So far, we have been dealing with]{\vspace{-1.5em}
+\[ \dd{}{t}\vec{x} = \mathbf{A} \vec{x}, \qquad \vec{x}(t_0)=\vec{x}_0  \qquad \text{ with } \mathbf{A}\in\mathcal{M}_{n \times n}\]\vfill
+
+\student{Homogeneous: \[\dd{}{t}\vec{x} - \mathbf{A} \vec{x} = \vec{0}\]\vfill}
+General solution: \[\vec{x}_h(t) = \mathbf{X}(t) \vec{c}, \qquad \vec{c}=\mathbf{X}^{-1}(t_0) \vec{x}_0 \]
+$\mathbf{X}$ is constructed from $n$ linearly independent \uline{eigensolutions}
+\[\mathbf{X}(t) =\student{\underbrace{\ucover{\mat{cccc}{\vec{x}_1(t)  & \vec{x}_2(t)  & \cdots &\vec{x}_n(t) }}}_{\mat{cccc}{e^{\lambda_1t}\vec{v}_1  & e^{\lambda_2t}\vec{v}_2   & \cdots & \cdots}}} =\mat{cccc}{x_{1,1}(t)  & x_{2,1}(t)  & \cdots &x_{n,1}(t) \\ 
+\vdots & \ddots &&\vdots\\
+\vdots && \ddots &\vdots\\
+x_{1,n}(t)  & \cdots & \cdots &x_{n,n}(t)
+ }\]
+}
+
+\slide[Inhomogeneous Systems]{
+Now we want to solve:
+\[ \dd{}{t}\vec{x} = \mathbf{A} \vec{x} + \vec{f}(t)\]\vfill
+\student{\[\dd{}{t}\vec{x} - \mathbf{A} \vec{x} = \vec{f}(t)\]}\vfill
+General Solution:\[\vec{x}(t) = \vec{x}_h + \vec{x}_p\]\vfill
+\student{Recall: we already showed this to be true for any linear scalar ODE, nothing changes for a system. \vfill }
+}
+\subsection{Undetermined Coefficients}
+\slide[Constant Inhomogeneity]{
+\[ \dd{}{t}\vec{x} = \mathbf{A} \vec{x} + \vec{b}\]\vfill
+\student{\[\dd{}{t}\vec{x} - \mathbf{A} \vec{x} = \vec{b}\]}
+\vfill
+Method of Undetermined Coefficients:\vfill\[\vec{x}_p = \vec{w}\]\vspace{-1.2em}
+\student{\algn{\dd{}{t} \vec{x}_p  &= \vec{0} = \mathbf{A}\vec{w}+\vec{b} &&\uline{\text{in practice}}\\
+\vec{w}&=-\mathbf{A}^{-1}\vec{b} &&\mat{c|c}{\mathbf{A}&-\vec{b}} }\vfill
+Assuming $\mathbf{A}^{-1}$ exists, i.e., $\det \mathbf{A}\neq 0$.
+}
+}
+
+\slide[Non-constant Inhomogeneity]{\vspace{-2em}
+\algn{ \dd{}{t}\vec{x} &= \mathbf{A} \vec{x} + f(t)\vec{b}\intertext{or more generally,}
+\dd{}{t}\vec{x} &= \mathbf{A} \vec{x} + \vec{f}(t)}
+
+
+\vfill
+This lecture we cover: method of undetermined coefficients\vfill\student{
+\subitem{  Works just like for scalar DEs \item Need to find many unknown vectors, instead of coefficients \item Gets very trick with resonance}\vfill}
+\vfill
+Next lecture: variation of parameters (more powerful, no guessing)
+}
+
+
+
+\slide[Method of Undetermined Coefficients: scalar resonance]{\vspace{-1.5em}
+\[ ay''+by'+cy = f(t)\qquad \text{gen sol: } y=y_h+y_p\]
+\vfill
+Guess $y_p$ based on the form of $f(t)$
+\vfill
+If any term in $y_p$ is linearly dependent with $y_h$, multiply that term by $t$.\vfill
+\student{How will this work for a system?\hfill $\dd{}{t}\vec{x} = \mathbf{A} \vec{x} + f(t)\vec{b}$\hfill~\vfill
+\[  \vec{x}_h= \sum_ic_i e^{\lambda_it}(t) \vec{v}_i \quad \text{and} \quad \vec{x}_p \approx \sum_j \ddn{}{t}{j}f(t) \vec{w}_j\]\vfill
+Do we check for linear dependence between:\itmz{\item  $e^{\lambda_i t}$ and $\ddn{f}{t}{j}$? \item $\vec{v}_i$ and $\vec{b}$?
+\item The products of these thing?}
+}
+
+}
+
+\slide[Method of Undetermined Coefficients: system resonance]{\vspace{-1.5em}
+\[ \dd{}{t}\vec{x}\quad =\quad \mathbf{A}\vec{x}\quad +\student{\underbrace{\ucover{e^{rt}}}_{\larray{\small \text{scalar}\\ \small\text{function}}} }  \hspace{-.75em} \times \hspace{-.75em}\student{\underbrace{\ucover{\vec{b}}}_{\rarray{\small \text{constant}\\ \small\text{vector}}} }  \]
+With unknown $\mathbf{A}$ we don't know if we have resonance, lets assume we do.\vfill
+\student{Try \[ \vec{x}_p = e^{rt}\vec{u} + te^{rt} \vec{w}\]
+\algn{\dd{}{t}\vec{x}_p &= e^{rt}\left( r\vec{u} + \vec{w} +rt\vec{w} \right) \\\\
+\mathbf{A}\vec{x}_p +\vec{f}(t)&= e^{rt} \left( \mathbf{A} \vec{u} + t \mathbf{A}\vec{w} +\vec{b} \right) \\\\
+\mathbf{A} \vec{u} + t \mathbf{A}\vec{w} +\vec{b} &= r\vec{u} + \vec{w} +rt\vec{w} }
+Similar procedure works for $\cos$ or $\sin$ as the scalar function.
+}
+}
+\slide[]{\vspace{-1.5em}
+\[\vec{x}_p = e^{rt}\vec{u} + te^{rt} \vec{w} \qquad \Rightarrow \qquad \mathbf{A} \vec{u} + t \mathbf{A}\vec{w} +\vec{b} = r\vec{u} + \vec{w} +rt\vec{w}  \]
+
+\student{True for all $t$, need the coefficients to match\vfill
+\twomini[.4]{.35}{.65}{\vspace{-1em}\algn{\uline{\text{t:}}&\\\mathbf{A} \vec{w} &= r\vec{w}\\\\
+\uline{\text{constant:}}&\\
+\mathbf{A}\vec{u} +\vec{b} &= r\vec{u}+\vec{w}\\
+(\mathbf{A}-r\mathbf{I})\vec{u} &=\vec{w}-\vec{b} }
+}{~\\$\vec{w}$ is an eigenvector with eigenvalue $r$.\\~\\
+But if $r$ is not an eignevalue of $\mathbf{A}$, then $\vec{w}=\vec{0}$.\hfill(i.e., no resonance)\hfill~\\
+
+}
+\vfill Easy to solve if $r$ is not an eigenvalue (i.e., $\vec{w}=\vec{0}$)\[ \vec{u} = - (\mathbf{A}-r\mathbf{I}) ^{-1}\vec{b} \qquad \text{or} \qquad \mat{c|c}{ \mathbf{A}-r\mathbf{I} &-\vec{b}}\]
+\vfill
+Conclusion: sufficient to check the scalar function for resonance
+}
+}
+ \slide[]{
+ $\dd{}{t}\vec{x} = \mathbf{A}\vec{x}+e^{rt}\vec{b}$, \hfill $\vec{x}=\vec{x}_h+\vec{x}_p$, \hfill where $\vec{x}_p = e^{rt}\vec{u} + te^{rt} \vec{w}$\hfill~
+ \[ \text{ with }\quad  \mathbf{A} \vec{w} = r\vec{w} \quad \text{and} \quad (\mathbf{A}-r\mathbf{I})\vec{u} =\vec{w}-\vec{b}\]
+If $r$ is an eigenvalue, we cannot invert $(\mathbf{A}-r\mathbf{I})$...\\~\\\student{
+Recall: $\vec{w}$ is only defined up to a mulitplicative constant ($\alpha$) \[(\mathbf{A}-r\mathbf{I})\vec{u} =\alpha \vec{w}-\vec{b}\]
+Choose $\alpha$ such that we can make  \[\text{LHS} = \text{RHS}\]
+\vfill
+That is quite vague, lets do an example!
+}
+}
+
+\slide[Find a particular solution to \hfill  \small $\dd{}{t} \vec{x} = \mat{cc}{2&-1\\3&-2}\vec{x} + e^{-t}\mat{c}{2\\-1}$ \hfill]{
+\student{\vspace{-2em}
+\algn{
+\det\left(  \mat{cc}{2-\lambda&-1\\3&-2-\lambda} \right) &= 0\\
+(2-\lambda)(-2-\lambda)+3&=0\\
+\lambda^2+2\lambda-2\lambda-4+3&=0\\
+\lambda^2-1&=0 &\lambda_{1,2}=\pm 1
+}
+\vfill
+One eigensolution has a prefactor $e^{-t}$ and so does the inhomogeneity, we have resonance.\vfill
+Need to find the $\lambda=-1$ eigenvector.\vfill
+\algn{
+ \mat{cc|c}{3&-1&0\\3&-1&0} & \quad \larray{3x-y=0\\y=3x}&\vec{w} = \mat{c}{1\\3}}
+}
+}
+
+
+\slide[Find a particular solution to \hfill  \small $\dd{}{t} \vec{x} = \mat{cc}{2&-1\\3&-2}\vec{x} + e^{-t}\mat{c}{2\\-1}$ \hfill]{
+\student{\vspace{-1em}
+\algn{\vec{x}_p = e^{-t} \left(\vec{u}+t\vec{w}\right)&\qquad (\mathbf{A}+\mathbf{I})\vec{u} = \alpha\vec{w}-\mat{c}{2\\-1} &\vec{w} = \mat{c}{1\\3}\\\\
+ \mat{cc}{3&-1\\3&-1} \mat{c}{u_1\\u_2} &= \alpha \mat{c}{1\\3}-\mat{c}{2\\-1} = \mat{c}{\alpha-2\\3\alpha+1}\\\\
+3u_1-u_2=\alpha-&2=3\alpha+1 \qquad  \quad\alpha-2=3\alpha+1 &\Rightarrow \alpha=-\frac32\\
+3u_1-u_2=-\frac72&\qquad \quad  \quad \text{or } u_2 = 3u_1+\frac72 &\vec{u}=\mat{c}{1\\ \frac{13}{2} }\\\\
+\vec{x}_p &= e^{-t}\left( \mat{c}{1\\ \frac{13}{2}}+ t \mat{c}{1\\3} \right)
+}\vfill
+}
+}
+
+\slide[Find a particular solution to \hfill  \small $\dd{}{t} \vec{x} = \mat{cc}{-1&-4\\1&-1}\vec{x} + \mat{c}{2 \sin t\\-e^{-3t}}$ \hfill]{
+\student{\vspace{-2em}
+\algn{
+\det\left(  \mat{cc}{-1-\lambda&-4\\1&-1-\lambda} \right) &= 0\\
+(1+\lambda)(1+\lambda)+4&=0\\
+\lambda^2+2\lambda+5&=0\\
+\lambda_{1,2}&=\frac{-2 \pm \sqrt{4-20}}{2}=-1\pm2i\\\\
+\vec{x}_{1,2}& \approx e^{-t} \left[ \sin(2t) \pm \cos(2t)\right]\vec{v}_{1,2}\\
+}\centerline{Two scalar functions $\sin(t)$ and $e^{-3t}$...No resonance!}
+\vfill
+\[\text{family of functional forms}=\{ \sin(t),\cos(t), e^{-3t}\}\]\vfill
+\[\text{guess: } \vec{x}_p = \sin(t)\vec{a} + \cos(t)\vec{b} + e^{-3t}\vec{c}\]
+
+
+}
+}
+
+
+\settoggle{covered}{false}
+
+\slide[Find a particular solution to \hfill  \small $\dd{}{t} \vec{x} = \mat{cc}{-1&-4\\1&-1}\vec{x} + \mat{c}{2 \sin t\\-e^{-3t}}$ \hfill]{\vspace{-0.75em}
+$\vec{x}_p =\sin(t)  \vec{a} + \cos(t)\vec{b}+e^{-3t}\vec{c}$
+\student{\vspace{-0.5em}
+\algn{\text{LHS: }& \dd{}{t}\vec{x}_p =\cos(t)\vec{a} - \sin(t)\vec{b}-3e^{-3t}\vec{c} \quad \\
+\text{RHS: }&\mathbf{A}\left(\sin(t)  \vec{a} + \cos(t)\vec{b}+e^{-3t}\vec{c} \right)+ \sin(t)\mat{c}{2\\0} + e^{-3t} \mat{c}{0\\-1}}
+\vspace{-1em}
+\algn{
+&\uline{\cos(t):} \quad \vec{a} = \mathbf{A}\vec{b}\; \circled{1}&\\
+&\uline{\sin(t):} \quad-\vec{b} =\mathbf{A}\vec{a} +\mat{c}{2\\0} &\Rightarrow \quad \mathbf{A}\vec{a}+\vec{b}&=\mat{c}{-2\\0} \\
+ \circled{1}&\Rightarrow \quad  \mathbf{AA}\vec{b}+\vec{b}=\mat{c}{-2\\0}&\Rightarrow \quad (\mathbf{A}^2+\mathbf{I})\vec{b}&=\mat{c}{-2\\0}\; \circled{2}\\
+&\uline{e^{-3t}:} \quad -3\vec{c} =\mathbf{A}\vec{c}+\mat{c}{0\\-1} &(\mathbf{A}+3\mathbf{I})\vec{c} &= \mat{c}{0\\1} \; \circled{3}
+}\vfill
+Solve \circled{2} for $\vec{b}$ and \circled{3} for  $\vec{c}$, then use \circled{1}  to find $\vec{a}$...
+}
+}
+
+\slide[Find a particular solution to \hfill  \small $\dd{}{t} \vec{x} = \mat{cc}{-1&-4\\1&-1}\vec{x} + \mat{c}{2 \sin t\\-e^{-3t}}$ \hfill]{
+$\vec{x}_p =\sin(t)  \vec{a} + \cos(t)\vec{b}+e^{-3t}\vec{c}$
+\[(\mathbf{A}^2+\mathbf{I})\vec{b}=\mat{c}{-2\\0}  \qquad  \Rightarrow \qquad  \mat{cc}{-2&8\\-2&-2}\vec{b} = \mat{c}{-2\\0}  \]
+\student{
+\algn{\mat{cc|c}{-2&8&-2\\-2&-2&0} && R_1-R_2\to R_1\mat{cc|c}{0&10&-2\\-2&-2&0}\intertext{$R_2+\frac{2}{10}R_1\to R_2$}
+\mat{cc|c}{0&10&-2\\-2&0&-\frac{4}{10}}&&\arr{ll}{10 b_2 = -2 &\Rightarrow b_2=-\frac{2}{10}\\ -2b_1=-\frac{4}{10} &\Rightarrow b_1=\frac{2}{10}}\\\\
+\vec{b}=\frac15\mat{c}{1\\-1} &&\vec{a}=\mathbf{A}\vec{b} = \frac15\mat{c}{3\\2}}
+}
+}
+
+\slide[Find a particular solution to \hfill  \small $\dd{}{t} \vec{x} = \mat{cc}{-1&-4\\1&-1}\vec{x} + \mat{c}{2 \sin t\\-e^{-3t}}$ \hfill]{
+$\vec{x}_p =\sin(t)  \vec{a} + \cos(t)\vec{b}+e^{-3t}\vec{c}$
+\[(\mathbf{A}+3\mathbf{I})\vec{c}=\mat{c}{0\\1}  \qquad  \Rightarrow \qquad  \mat{cc}{2&-4\\1&2}\vec{c} = \mat{c}{0\\1}  \]
+\student{
+\algn{
+\mat{cc|c}{2&-4&0\\1&2&1}&& R_1+2R_2\to R_1\mat{cc|c}{4&0&2\\1&2&1} \intertext{$ R_2-\frac14R_1\to R_2$}
+\mat{cc|c}{4&0&2\\0&2&\frac12}&&\arr{ll}{4 c_1 = 2 &\Rightarrow c_1=\frac12\\ 2c_2=\frac12 &\Rightarrow c_2=\frac14}\\\\
+\vec{c}=\frac14\mat{c}{2\\1} 
+}
+\[\vec{x}_p =\frac15\paren{ \sin(t){\tiny \mat{c}{3\\2}}+\cos(t) {\tiny \mat{c}{1\\-1}}}+\frac14e^{-3t}{\tiny \mat{c}{2\\1}}\]
+}
+}
+%
+%
+%\slide[Variation of Parameters: $\dd{}{t}\vec{x} = \mathbf{A}(t) \vec{x} + \vec{f}(t)$]{
+%Try:\[\vec{x}_p =\mathbf{\Phi}(t) \vec{u}(t) \qquad \text{with unknown } \vec{u}(t) \]
+%
+%\student{
+%\algn{\dd{}{t} \vec{x}_p = \mathbf{\Phi^\prime}(t) \vec{u}(t) +\mathbf{\Phi}(t) \vec{u}^\prime(t)  &= \mathbf{A}(t) \mathbf{\Phi}(t) \vec{u}(t) +\vec{f}(t) \intertext{Recall:}
+% \mathbf{\Phi^\prime}(t) & = \mathbf{A}(t) \mathbf{\Phi}(t)\intertext{So}
+%\cancel{\mathbf{\Phi^\prime}(t) \vec{u}(t)} +\mathbf{\Phi}(t) \vec{u}^\prime(t)  &=\cancel{\mathbf{\Phi^\prime}(t) \vec{u}(t)}+\vec{f} (t)
+% }
+%\algn{\vec{u}^\prime(t)& = \mathbf{\Phi}(t)^{-1} \vec{f}(t) & \Rightarrow \Aboxed{\vec{u}(t)&=\int  \mathbf{\Phi}(t)^{-1} \vec{f}(t)  dt +\vec{c}}}
+%
+%}
+%}
+%
+%\slide[Variation of Parameters: initial conditions]{
+%\[\vec{u}(t)=\int  \mathbf{\Phi}(t)^{-1} \vec{f}(t)  dt +\vec{c}\]
+%\student{\algn{\vec{x}(t)&=\mathbf{\Phi}(t) \vec{u}(t)\\
+%&= \mathbf{\Phi}(t) \int_{t_0}^t  \mathbf{\Phi}(s)^{-1} \vec{f}(s)  ds + \mathbf{\Phi}(t)\vec{c}\\\\
+%\vec{x}(t_0) &= \mathbf{\Phi}(t_0)\vec{c}&\vec{c}= \mathbf{\Phi}(t_0)^{-1} \vec{x}_0\\\\
+%\Aboxed{\vec{x}(t)&=\mathbf{\Phi}(t) \int_{t_0}^t  \mathbf{\Phi}(s)^{-1} \vec{f}(s)  ds + \mathbf{\Phi}(t)  \mathbf{\Phi}(t_0)^{-1} \vec{x}_0}
+%}
+%}
+%}
+
+
+\end{document}
